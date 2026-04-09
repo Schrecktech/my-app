@@ -155,7 +155,7 @@ Requires macOS with Xcode, CocoaPods, and Fastlane installed.
 
 ```bash
 # Build locally — typically 2-5 minutes
-npx npx eas build --platform ios --profile preview --local
+npx eas build --platform ios --profile preview --local
 
 # Output: .ipa file in the current directory
 # Install via: drag to Xcode Devices window, or use Apple Configurator
