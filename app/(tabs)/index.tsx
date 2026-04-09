@@ -59,9 +59,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: Spacing.lg,
+    paddingVertical: Spacing.lg,
   },
   heroTitle: {
     fontSize: 36,
+    lineHeight: 48,
     fontWeight: 'bold',
   },
   heroSubtitle: {
