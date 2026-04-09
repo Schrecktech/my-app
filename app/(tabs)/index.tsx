@@ -15,10 +15,16 @@ export default function HomeScreen() {
       headerBackgroundColor={{ light: Colors.light.hero, dark: Colors.dark.hero }}
       headerImage={
         <View style={styles.heroContent}>
-          <ThemedText style={[styles.heroTitle, { color: Colors[colorScheme].heroText }]}>
+          <ThemedText
+            style={[styles.heroTitle, { color: Colors[colorScheme].heroText }]}
+            numberOfLines={1}
+            adjustsFontSizeToFit>
             Your Brand
           </ThemedText>
-          <ThemedText style={[styles.heroSubtitle, { color: Colors[colorScheme].heroText }]}>
+          <ThemedText
+            style={[styles.heroSubtitle, { color: Colors[colorScheme].heroText }]}
+            numberOfLines={1}
+            adjustsFontSizeToFit>
             Tagline goes here
           </ThemedText>
         </View>
@@ -52,6 +58,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    paddingHorizontal: Spacing.lg,
   },
   heroTitle: {
     fontSize: 36,
