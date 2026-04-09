@@ -9,15 +9,21 @@ Development cycle for this Expo cross-platform app (iOS, Android, Web).
 - **EAS CLI** — `npm install -g eas-cli`
 - **Expo Go** app on your phone (for quick device testing)
 - **Git** — version control
+- **gitleaks** — secret scanning (install: `brew install gitleaks` or see https://github.com/gitleaks/gitleaks)
 
-Optional (for local simulators):
-- **Xcode** — iOS simulator (macOS only)
-- **Android Studio** — Android emulator
+Optional (for local iOS builds on macOS):
+- **Xcode** — iOS simulator + local builds (macOS only)
+- **CocoaPods** — `sudo gem install cocoapods` or `brew install cocoapods`
+- **Fastlane** — `brew install fastlane` (used by EAS for signing)
+
+Optional (for Android):
+- **Android Studio** — Android emulator + local builds
 
 ## First-Time Setup
 
 ```bash
-# Clone the repo (or navigate to project root)
+# Clone the repo
+git clone https://github.com/Schrecktech/my-app.git
 cd my-app
 
 # Install dependencies
@@ -130,9 +136,43 @@ After committing, update `CHANGELOG.md` following [Keep a Changelog](https://kee
 
 Add entries under `## [Unreleased]`. When releasing, move entries to a versioned section.
 
-### 6. Build for Devices
+### 6. Secret Scanning
 
-#### iOS (Cloud Build — works from any OS)
+Run gitleaks before pushing to catch any accidentally committed secrets:
+
+```bash
+gitleaks detect --source . --verbose
+```
+
+This is a required quality gate. Never push if leaks are detected.
+
+### 7. Build for Devices
+
+#### iOS — Local Build (macOS, fastest)
+
+Requires macOS with Xcode, CocoaPods, and Fastlane installed.
+
+```bash
+# Build locally — typically 2-5 minutes
+eas build --platform ios --profile preview --local
+
+# Output: .ipa file in the current directory
+# Install via: drag to Xcode Devices window, or use Apple Configurator
+```
+
+For development iteration with hot reload (build once, iterate fast):
+
+```bash
+# One-time: build the dev client locally
+eas build --platform ios --profile development --local
+
+# Then start the dev server — changes appear instantly, no rebuild needed
+npx expo start --dev-client
+```
+
+#### iOS — Cloud Build (any OS)
+
+Use when you don't have a Mac available, or for CI/CD.
 
 ```bash
 eas build --platform ios --profile preview
@@ -141,9 +181,17 @@ eas build --platform ios --profile preview
 - **preview** — internal distribution, installs via QR/link
 - **production** — App Store ready
 
-The build runs in Expo's cloud. When done, you get a download link. On iPhone, open the link in Safari to install.
+The build runs in Expo's cloud (~10-15 min including queue). When done, you get a download link. On iPhone, open the link in Safari to install.
 
-#### Android (Cloud Build)
+#### Android — Local Build (any OS)
+
+Requires Android SDK (bundled with Android Studio).
+
+```bash
+eas build --platform android --profile preview --local
+```
+
+#### Android — Cloud Build (any OS)
 
 ```bash
 eas build --platform android --profile preview
@@ -159,7 +207,7 @@ npx expo export --platform web
 
 Outputs static files to `dist/` for deployment to any web host.
 
-### 7. Over-the-Air Updates (JS-only changes)
+### 8. Over-the-Air Updates (JS-only changes)
 
 For changes that don't touch native code:
 
@@ -277,6 +325,7 @@ The following checks form the quality pipeline. Items marked *planned* will be a
 |------|---------|--------|
 | Type checking | `npx tsc --noEmit` | Active |
 | Linting | `npx expo lint` | Active |
+| Secret scanning | `gitleaks detect --source . --verbose` | Active |
 | SAST security scanning | *TBD* | Planned |
 | Dependency vulnerability audit | `npm audit` | Planned (automated) |
 | SBOM generation | *TBD* | Planned |

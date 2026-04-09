@@ -126,6 +126,7 @@ See `docs/adr/` for recorded decisions. Current ADRs:
 - 0004: Keep a Changelog
 - 0005: Semantic Versioning
 - 0006: Git worktree for parallel/multi-agent development
+- 0007: Gitleaks secret scanning
 
 ## Backlog (Do Not Implement Unless Asked)
 
