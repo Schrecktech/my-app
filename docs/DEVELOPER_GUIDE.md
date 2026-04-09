@@ -327,8 +327,8 @@ The following checks form the quality pipeline. Items marked *planned* will be a
 | Type checking | `npx tsc --noEmit` | Active |
 | Linting | `npx expo lint` | Active |
 | Secret scanning | `gitleaks detect --source . --verbose` | Active |
+| Dependency audit (production) | `npm audit --omit=dev` | Active |
 | SAST security scanning | *TBD* | Planned |
-| Dependency vulnerability audit | `npm audit` | Planned (automated) |
 | SBOM generation | *TBD* | Planned |
 | Virus / malware scanning | *TBD* | Planned |
 | Dependency updates | *TBD (e.g., Dependabot, Renovate)* | Planned |
