@@ -28,10 +28,10 @@ npx tsc --noEmit
 npx expo lint
 
 # Build iOS (cloud, requires EAS login)
-eas build --platform ios --profile preview
+npx eas build --platform ios --profile preview
 
 # Build Android (cloud)
-eas build --platform android --profile preview
+npx eas build --platform android --profile preview
 ```
 
 ## Project Structure
