@@ -8,6 +8,7 @@ Development cycle for this Expo cross-platform app (iOS, Android, Web).
 - **npm** (comes with Node)
 - **EAS CLI** — `npm install -g eas-cli`
 - **Expo Go** app on your phone (for quick device testing)
+- **Git** — version control
 
 Optional (for local simulators):
 - **Xcode** — iOS simulator (macOS only)
@@ -65,16 +66,71 @@ npx expo lint
 
 Both must be clean before committing.
 
-### 4. Commit
+### 4. Commit (Conventional Commits)
 
-Follow conventional commit style. Include what changed and why.
+This project follows [Conventional Commits](https://www.conventionalcommits.org/) v1.0.0.
 
-```bash
-git add <files>
-git commit -m "Short description of change"
+**Format:**
+
+```
+<type>(<scope>): <description>
+
+[optional body]
+
+[optional footer(s)]
 ```
 
-### 5. Build for Devices
+**Types:**
+
+| Type | When to use |
+|------|-------------|
+| `feat` | New feature or capability |
+| `fix` | Bug fix |
+| `docs` | Documentation only |
+| `style` | Formatting, whitespace (no code change) |
+| `refactor` | Code change that neither fixes a bug nor adds a feature |
+| `perf` | Performance improvement |
+| `test` | Adding or fixing tests |
+| `build` | Build system or external dependency changes |
+| `ci` | CI/CD configuration |
+| `chore` | Maintenance tasks |
+
+**Scopes** (optional, use when helpful):
+
+`theme`, `home`, `about`, `nav`, `build`, `docs`, `adr`
+
+**Examples:**
+
+```bash
+git commit -m "feat(theme): add accent color token for CTAs"
+git commit -m "fix(home): prevent hero text clipping at large font sizes"
+git commit -m "docs(adr): record decision to use Expo Router"
+```
+
+**Breaking changes:** Add `!` after the type/scope, or include `BREAKING CHANGE:` in the footer:
+
+```bash
+git commit -m "feat(nav)!: replace tab navigation with drawer"
+```
+
+### 5. Update the Changelog
+
+After committing, update `CHANGELOG.md` following [Keep a Changelog](https://keepachangelog.com/) v1.1.0.
+
+**Categories** (use only those that apply):
+
+| Category | What goes here |
+|----------|---------------|
+| **Added** | New features |
+| **Changed** | Changes to existing functionality |
+| **Deprecated** | Features that will be removed |
+| **Removed** | Features that were removed |
+| **Fixed** | Bug fixes |
+| **Security** | Vulnerability fixes |
+
+Add entries under `## [Unreleased]`. When releasing, move entries to a versioned section.
+
+### 6. Build for Devices
 
 #### iOS (Cloud Build — works from any OS)
 
@@ -103,7 +159,7 @@ npx expo export --platform web
 
 Outputs static files to `dist/` for deployment to any web host.
 
-### 6. Over-the-Air Updates (JS-only changes)
+### 7. Over-the-Air Updates (JS-only changes)
 
 For changes that don't touch native code:
 
@@ -112,6 +168,75 @@ eas update --branch preview --message "Description of update"
 ```
 
 Users get the update without downloading a new build.
+
+## Versioning (Semantic Versioning)
+
+This project follows [Semantic Versioning](https://semver.org/) v2.0.0.
+
+**Format:** `MAJOR.MINOR.PATCH` (e.g., `1.2.3`)
+
+| Increment | When |
+|-----------|------|
+| **MAJOR** | Incompatible API or UX changes (e.g., navigation overhaul) |
+| **MINOR** | New features, backward compatible (e.g., add a new tab) |
+| **PATCH** | Bug fixes, backward compatible (e.g., fix text clipping) |
+
+**Pre-release:** Append hyphen + identifiers: `1.0.0-alpha.1`, `1.0.0-beta.2`
+
+**Current version management:** EAS manages build versions remotely (`"appVersionSource": "remote"` in `eas.json`). The `CHANGELOG.md` tracks the logical version.
+
+## Git Worktree Workflow (Multi-Agent / Parallel Development)
+
+Use `git worktree` to work on multiple features simultaneously in isolated copies of the repo. This is essential for multi-agent and sub-agent workflows where parallel work must not conflict.
+
+### When to Use Worktrees
+
+- Working on multiple features in parallel
+- AI agents working on independent tasks concurrently
+- Testing a fix while feature work is in progress
+- Reviewing a branch without switching context
+
+### Creating a Worktree
+
+```bash
+# From the main repo, create a worktree for a feature branch
+git worktree add ../my-app-feature-name -b feat/feature-name
+
+# The worktree is a full working copy at ../my-app-feature-name
+cd ../my-app-feature-name
+npm install
+```
+
+### Worktree Conventions
+
+- **Location:** Sibling directories to the main repo (e.g., `../my-app-feature-name`)
+- **Branch naming:** `feat/`, `fix/`, `docs/`, `refactor/` prefixes matching conventional commit types
+- **One branch per worktree** — never share branches across worktrees
+- **Install dependencies** in each worktree (`npm install`) — `node_modules` is not shared
+- **Clean up** when done:
+
+```bash
+# From any worktree or the main repo
+git worktree remove ../my-app-feature-name
+
+# Or list all worktrees
+git worktree list
+```
+
+### Multi-Agent Workflow
+
+When AI agents work in parallel:
+
+1. Each agent gets its own worktree with an isolated branch
+2. Agents work independently — no shared state
+3. When done, each branch is merged back to `main` (or a PR is created)
+4. Merge conflicts are resolved in the main repo
+
+```bash
+# Example: two agents working in parallel
+git worktree add ../my-app-agent-1 -b feat/ordering-menu
+git worktree add ../my-app-agent-2 -b feat/push-notifications
+```
 
 ## Build Profiles
 
@@ -144,6 +269,24 @@ Recorded in `docs/adr/`. To add a new ADR:
 2. Include: Status, Date, Context, Decision, Consequences
 3. Commit with the related code change
 
+## Quality Gates (Current and Planned)
+
+The following checks form the quality pipeline. Items marked *planned* will be added as tooling is integrated.
+
+| Gate | Command | Status |
+|------|---------|--------|
+| Type checking | `npx tsc --noEmit` | Active |
+| Linting | `npx expo lint` | Active |
+| SAST security scanning | *TBD* | Planned |
+| Dependency vulnerability audit | `npm audit` | Planned (automated) |
+| SBOM generation | *TBD* | Planned |
+| Virus / malware scanning | *TBD* | Planned |
+| Dependency updates | *TBD (e.g., Dependabot, Renovate)* | Planned |
+| Unit tests | *TBD (e.g., Jest + React Native Testing Library)* | Planned |
+| E2E tests | *TBD (e.g., Detox, Maestro)* | Planned |
+
+All active gates must pass before committing. Planned gates will be enforced as they are added.
+
 ## Troubleshooting
 
 **Metro bundler stuck:** `npx expo start --clear` (clears cache)
@@ -153,3 +296,5 @@ Recorded in `docs/adr/`. To add a new ADR:
 **Build fails on EAS:** Check the build logs at https://expo.dev — most issues are dependency or signing related.
 
 **iOS signing issues:** Run `eas credentials` to manage certificates and provisioning profiles.
+
+**Worktree issues:** `git worktree list` to see all worktrees. `git worktree prune` to clean up stale entries.

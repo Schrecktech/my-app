@@ -54,6 +54,34 @@ docs/
   adr/                  # Architecture Decision Records
 ```
 
+## Commit Messages (Conventional Commits)
+
+All commits must follow [Conventional Commits](https://www.conventionalcommits.org/) v1.0.0.
+
+```
+<type>(<scope>): <description>
+```
+
+Types: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `build`, `ci`, `chore`
+Scopes: `theme`, `home`, `about`, `nav`, `build`, `docs`, `adr`
+Breaking changes: append `!` after type/scope
+
+After committing, update `CHANGELOG.md` under `## [Unreleased]` using Keep a Changelog categories: Added, Changed, Deprecated, Removed, Fixed, Security.
+
+## Versioning
+
+[Semantic Versioning](https://semver.org/) v2.0.0: `MAJOR.MINOR.PATCH`
+- MAJOR = incompatible changes, MINOR = new features, PATCH = bug fixes
+
+## Parallel Work (Git Worktree)
+
+Use `git worktree` for isolated parallel development:
+- `git worktree add ../my-app-<name> -b <type>/<name>`
+- One branch per worktree, run `npm install` in each
+- Clean up: `git worktree remove ../my-app-<name>`
+
+See `docs/DEVELOPER_GUIDE.md` for full workflow details.
+
 ## Code Style Guidelines
 
 - **TypeScript** — strict mode, no `any` unless unavoidable
@@ -94,6 +122,10 @@ See `docs/adr/` for recorded decisions. Current ADRs:
 - 0000: Use ADRs for architectural decisions
 - 0001: React Native + Expo as framework
 - 0002: Centralized theming system
+- 0003: Conventional Commits
+- 0004: Keep a Changelog
+- 0005: Semantic Versioning
+- 0006: Git worktree for parallel/multi-agent development
 
 ## Backlog (Do Not Implement Unless Asked)
 
