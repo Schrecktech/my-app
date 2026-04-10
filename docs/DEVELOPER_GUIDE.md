@@ -166,7 +166,7 @@ Requires macOS with Xcode, CocoaPods, and Fastlane installed.
 
 ```bash
 # Build locally — typically 2-5 minutes
-npx eas-cli build --platform ios --profile preview --local --output ./build/myapp-$(git rev-parse --short HEAD).ipa
+npx eas-cli build --platform ios --profile preview --local --non-interactive --output ./build/myapp-vM.m.p-$(git rev-parse --short HEAD).ipa
 
 # Install via: drag to Xcode Devices window, or use Apple Configurator
 ```
@@ -175,7 +175,7 @@ For development iteration with hot reload (build once, iterate fast):
 
 ```bash
 # One-time: build the dev client locally
-npx eas-cli build --platform ios --profile development --local --output ./build/myapp-$(git rev-parse --short HEAD).ipa
+npx eas-cli build --platform ios --profile development --local --non-interactive --output ./build/myapp-$(git rev-parse --short HEAD).ipa
 
 # Then start the dev server — changes appear instantly, no rebuild needed
 npx expo start --dev-client
@@ -218,7 +218,15 @@ The build runs in Expo's cloud (~10-15 min including queue). When done, you get 
 
 #### Android — Local Build (any OS)
 
-Requires Android SDK (bundled with Android Studio).
+Requires Android SDK (bundled with Android Studio) and **JDK 17**. React Native's Gradle does not support newer JDK versions (e.g., JDK 21+ will fail with "Unsupported class file major version").
+
+Set `JAVA_HOME` before building if JDK 17 is not your default:
+
+```bash
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/amazon-corretto-17.jdk/Contents/Home
+```
+
+To make this permanent, add the line above to your `~/.zshrc`.
 
 ```bash
 npx eas-cli build --platform android --profile preview --local --output ./build/myapp-$(git rev-parse --short HEAD).apk
