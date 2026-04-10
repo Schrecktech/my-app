@@ -416,3 +416,5 @@ All active gates must pass before committing. Planned gates will be enforced as 
 **iOS signing issues:** Run `npx eas-cli credentials` to manage certificates and provisioning profiles.
 
 **Worktree issues:** `git worktree list` to see all worktrees. `git worktree prune` to clean up stale entries.
+
+**`packageManager` field after local build:** EAS local builds (`npx eas-cli build --local`) add a `"packageManager": "pnpm@..."` field to `package.json`. This project uses npm — discard the change before committing: `git restore package.json`
