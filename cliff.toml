@@ -28,6 +28,7 @@ tag_pattern = "v[0-9].*"
 sort_commits = "newest"
 
 commit_parsers = [
+    { sha = "8ff24d697d15dae733cae3aff173f135a6190e63", skip = true },
     { message = "^feat", group = "Added" },
     { message = "^fix", group = "Fixed" },
     { message = "^perf", group = "Changed" },

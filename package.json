@@ -9,7 +9,7 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "lint": "expo lint",
-    "changelog": "git-cliff --unreleased --prepend CHANGELOG.md",
+    "changelog": "bash scripts/changelog.sh",
     "release": "git-cliff --prepend CHANGELOG.md --tag"
   },
   "dependencies": {
