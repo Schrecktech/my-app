@@ -33,7 +33,7 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="explore"
+        name="about"
         options={{
           title: TAB_LABELS.about,
           tabBarIcon: ({ color }) => <IconSymbol size={TAB_ICON_SIZE} name="info.circle.fill" color={color} />,
