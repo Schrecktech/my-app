@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Add i18n titles and icons to activity sub-screen headers
+- Change activity back button label from 'index' to 'return'
+
 ## [0.6.0] - 2026-04-10
 
 ### Added
