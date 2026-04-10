@@ -3,6 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import ParallaxScrollView from '@/components/parallax-scroll-view';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
+import i18n from '@/constants/i18n';
 import { Colors, Spacing, Radii } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 
@@ -19,34 +20,34 @@ export default function HomeScreen() {
             style={[styles.heroTitle, { color: Colors[colorScheme].heroText }]}
             numberOfLines={1}
             adjustsFontSizeToFit>
-            Your Brand
+            {i18n.t('home.heroTitle')}
           </ThemedText>
           <ThemedText
             style={[styles.heroSubtitle, { color: Colors[colorScheme].heroText }]}
             numberOfLines={1}
             adjustsFontSizeToFit>
-            Tagline goes here
+            {i18n.t('home.heroSubtitle')}
           </ThemedText>
         </View>
       }>
       <ThemedView style={styles.section}>
-        <ThemedText type="title">Welcome</ThemedText>
+        <ThemedText type="title">{i18n.t('home.welcomeTitle')}</ThemedText>
         <ThemedText style={{ color: colors.textSecondary }}>
-          This is your app. Customize the theme in constants/theme.ts to make it yours.
+          {i18n.t('home.welcomeDescription')}
         </ThemedText>
       </ThemedView>
 
       <View style={[styles.card, { backgroundColor: colors.surface, borderColor: colors.border }]}>
-        <ThemedText type="subtitle">Get Started</ThemedText>
+        <ThemedText type="subtitle">{i18n.t('home.getStartedTitle')}</ThemedText>
         <ThemedText style={{ color: colors.textSecondary }}>
-          Swap colors, fonts, and spacing in one file. The entire app updates instantly.
+          {i18n.t('home.getStartedDescription')}
         </ThemedText>
       </View>
 
       <View style={[styles.card, { backgroundColor: colors.surface, borderColor: colors.border }]}>
-        <ThemedText type="subtitle">Built for Change</ThemedText>
+        <ThemedText type="subtitle">{i18n.t('home.builtForChangeTitle')}</ThemedText>
         <ThemedText style={{ color: colors.textSecondary }}>
-          Add your logo, pick your palette, and ship. Everything else is ready.
+          {i18n.t('home.builtForChangeDescription')}
         </ThemedText>
       </View>
     </ParallaxScrollView>
