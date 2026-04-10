@@ -66,11 +66,13 @@ const styles = StyleSheet.create({
     fontSize: 36,
     lineHeight: 48,
     fontWeight: 'bold',
+    textAlign: 'center',
   },
   heroSubtitle: {
     fontSize: 16,
     opacity: 0.8,
     marginTop: Spacing.xs,
+    textAlign: 'center',
   },
   section: {
     gap: Spacing.sm,
