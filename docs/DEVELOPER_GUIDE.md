@@ -9,6 +9,7 @@ Development cycle for this Expo cross-platform app (iOS, Android, Web).
 - **Expo Go** app on your phone (for quick device testing)
 - **Git** — version control
 - **gitleaks** — secret scanning (install: `brew install gitleaks` or see https://github.com/gitleaks/gitleaks)
+- **git-cliff** — changelog generation (installed automatically via `npm install`)
 
 Note: **EAS CLI** is managed via `npx eas-cli` — no global or local install needed. The minimum version is enforced by the `cli.version` field in `eas.json`.
 
@@ -122,20 +123,23 @@ git commit -m "feat(nav)!: replace tab navigation with drawer"
 
 ### 5. Update the Changelog
 
-After committing, update `CHANGELOG.md` following [Keep a Changelog](https://keepachangelog.com/) v1.1.0.
+After committing, regenerate the changelog:
 
-**Categories** (use only those that apply):
+```bash
+npm run changelog
+```
 
-| Category | What goes here |
-|----------|---------------|
-| **Added** | New features |
-| **Changed** | Changes to existing functionality |
-| **Deprecated** | Features that will be removed |
-| **Removed** | Features that were removed |
-| **Fixed** | Bug fixes |
-| **Security** | Vulnerability fixes |
+This runs git-cliff to auto-generate the `## [Unreleased]` section from your conventional commits. Only `feat`, `fix`, `perf`, `refactor`, `security`, and `deprecate` commits appear — others (docs, style, test, build, ci, chore) are omitted.
 
-Add entries under `## [Unreleased]`. When releasing, move entries to a versioned section.
+The existing hand-written changelog entries are preserved. git-cliff only modifies the `[Unreleased]` section.
+
+**At release time**, convert unreleased entries to a versioned section:
+
+```bash
+npm run release -- vX.Y.Z
+```
+
+This replaces the `[Unreleased]` heading with `[X.Y.Z] - YYYY-MM-DD`. You still need to manually bump version numbers in `app.json` (x3) and `package.json`.
 
 ### 6. Secret Scanning
 
@@ -264,7 +268,7 @@ When releasing a new version, update **all four locations**:
 | `app.json` | `expo.android.versionCode` | Integer, increment | `4` |
 | `package.json` | `version` | `MAJOR.MINOR.PATCH` | `0.4.0` |
 
-Also update `CHANGELOG.md`: move `## [Unreleased]` entries to a new versioned section.
+Also run `npm run release -- vX.Y.Z` to generate the versioned changelog section.
 
 **Version source:** `appVersionSource` is `"local"` in `eas.json`, meaning build numbers come from `app.json`, not EAS remote. This keeps Xcode, the app, and the codebase in sync.
 
@@ -396,6 +400,7 @@ The following checks form the quality pipeline. Items marked *planned* will be a
 | Linting | `npx expo lint` | Active |
 | Secret scanning | `gitleaks detect --source . --verbose` | Active |
 | Dependency audit (production) | `npm audit --omit=dev` | Active |
+| Changelog generation | `npm run changelog` | Active |
 | SAST security scanning | *TBD* | Planned |
 | SBOM generation | *TBD* | Planned |
 | Virus / malware scanning | *TBD* | Planned |
