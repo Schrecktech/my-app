@@ -7,6 +7,36 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.0] - 2026-04-10
+
+### Added
+
+- Drawer navigation (hamburger menu) wrapping existing tab navigator
+- Header bar with hamburger icon (left) and profile shortcut (right)
+- Profile screen with avatar, member ID, and editable name/email/phone fields
+- Activity hub screen with navigation to Messages, Transactions, and Security History
+- Messages, Transactions, and Security History placeholder screens
+- Settings screen with dark mode toggle, notification toggles, and language picker
+- Language override with "Device Default" option (persisted via AsyncStorage)
+- ADR-0010: Drawer navigation with header bar
+- New icon mappings for drawer, profile, activity, and settings icons
+- i18n strings for all new screens (drawer, profile, activity, settings)
+
+### Changed
+
+- Route structure: `(tabs)/` now nested inside `(drawer)/`
+- Root layout points to `(drawer)` instead of `(tabs)`
+- i18n system extended with `loadLanguagePreference`, `setLanguagePreference`, `getAvailableLanguages`
+- App startup loads stored language preference before rendering
+
+### Added to Backlog
+
+- Backend wiring for Profile edits
+- Backend wiring for notification preferences
+- Shopping cart icon in header
+- Logout with actual auth flow
+- Messages, Transactions, Security History real data
+
 ## [0.4.0] - 2026-04-10
 
 ### Added
