@@ -58,6 +58,7 @@ const en = {
   },
   activity: {
     title: 'Activity',
+    backTitle: 'return',
     messagesTitle: 'Messages',
     messagesSubtitle: 'Inbox and notifications',
     transactionsTitle: 'Transactions',
