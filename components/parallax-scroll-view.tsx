@@ -1,5 +1,5 @@
 import type { PropsWithChildren, ReactElement } from 'react';
-import { StyleSheet } from 'react-native';
+import { PixelRatio, StyleSheet } from 'react-native';
 import Animated, {
   interpolate,
   useAnimatedRef,
@@ -13,7 +13,7 @@ import { useColorScheme } from '@/hooks/use-color-scheme';
 import { useThemeColor } from '@/hooks/use-theme-color';
 import { Spacing } from '@/constants/theme';
 
-const HEADER_HEIGHT = 125;
+const BASE_HEADER_HEIGHT = 125;
 
 type Props = PropsWithChildren<{
   headerImage: ReactElement;
@@ -30,7 +30,9 @@ export default function ParallaxScrollView({
   const colorScheme = useColorScheme() ?? 'light';
   const scrollRef = useAnimatedRef<Animated.ScrollView>();
   const scrollOffset = useScrollOffset(scrollRef);
-  const totalHeaderHeight = HEADER_HEIGHT + insets.top;
+  const fontScale = PixelRatio.getFontScale();
+  const headerHeight = BASE_HEADER_HEIGHT * Math.min(fontScale, 2);
+  const totalHeaderHeight = headerHeight + insets.top;
   const headerAnimatedStyle = useAnimatedStyle(() => {
     return {
       transform: [

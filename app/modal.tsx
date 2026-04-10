@@ -66,9 +66,11 @@ const styles = StyleSheet.create({
   },
   row: {
     flexDirection: 'row',
+    flexWrap: 'wrap',
     justifyContent: 'space-between',
-    alignItems: 'center',
+    alignItems: 'baseline',
     paddingVertical: Spacing.md,
+    gap: Spacing.xs,
   },
   label: {
     fontSize: 16,
@@ -76,7 +78,6 @@ const styles = StyleSheet.create({
   value: {
     fontSize: 16,
     flexShrink: 1,
-    textAlign: 'right',
   },
   dismiss: {
     alignSelf: 'center',
