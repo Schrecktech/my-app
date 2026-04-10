@@ -7,18 +7,38 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-04-10
+
 ### Added
 
+- Debug Info modal with build details (version, build ID, SDK, platform, OS, bundle ID)
+- Tappable version label on About screen that opens debug modal
 - AGENTS.md for AI agent context following [agents.md](https://agents.md) spec
 - Project-level `.claude/settings.json` with recommended plugins
 - `docs/DEVELOPER_GUIDE.md` covering full development cycle
 - Conventional Commits, Keep a Changelog, and Semantic Versioning standards
 - Git worktree workflow for multi-agent parallel development
 - Quality gates table with current and planned tooling
+- ADR-0007: Gitleaks secret scanning
+- ADR-0008: EAS build and deployment
+- Gitleaks as active quality gate
+- Production dependency audit (`npm audit --omit=dev`) as active quality gate
+- `eas-cli` as project dev dependency for reproducibility
+- Local macOS build instructions in developer guide
 
 ### Changed
 
+- Version bumped to 0.3.0 across package.json, app.json, and changelog
+- Build info moved from About screen footer to dedicated Debug Info modal
 - Developer guide expanded with commit format, changelog process, versioning, and worktree workflows
+- All `eas` commands use `npx eas` prefix (no global install needed)
+- EAS CLI version pinned to 18.5.0 in eas.json
+
+### Fixed
+
+- Hero title text clipping with explicit lineHeight
+- Duplicate `npx npx` in developer guide
+- Git author/committer email corrected across all commits
 
 ## [0.2.0] - 2026-04-09
 

@@ -1,4 +1,5 @@
-import { StyleSheet, View, Platform } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import { Link } from 'expo-router';
 import Constants from 'expo-constants';
 
 import ParallaxScrollView from '@/components/parallax-scroll-view';
@@ -9,16 +10,10 @@ import i18n from '@/constants/i18n';
 import { Colors, Spacing, Radii } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 
-const BUILD_ID = Constants.expoConfig?.extra?.buildId ?? 'unknown';
-const APP_VERSION = '0.2.0';
-
 export default function AboutScreen() {
   const colorScheme = useColorScheme() ?? 'light';
   const colors = Colors[colorScheme];
-
-  const expoVersion = Constants.expoConfig?.sdkVersion ?? 'unknown';
-  const appName = Constants.expoConfig?.name ?? 'my-app';
-  const nativeVersion = Constants.expoConfig?.version ?? APP_VERSION;
+  const appVersion = Constants.expoConfig?.version ?? '0.0.0';
 
   return (
     <ParallaxScrollView
@@ -61,21 +56,11 @@ export default function AboutScreen() {
         </ThemedText>
       </View>
 
-      <View style={[styles.buildInfo, { borderColor: colors.border }]}>
-        <ThemedText style={styles.buildLabel}>{i18n.t('about.buildInfo')}</ThemedText>
-        <ThemedText style={[styles.buildText, { color: colors.textSecondary }]}>
-          {appName} v{nativeVersion}
+      <Link href="/modal" style={styles.versionLink}>
+        <ThemedText style={[styles.versionText, { color: colors.textSecondary }]}>
+          v{appVersion}
         </ThemedText>
-        <ThemedText style={[styles.buildText, { color: colors.textSecondary }]}>
-          Build: {BUILD_ID}
-        </ThemedText>
-        <ThemedText style={[styles.buildText, { color: colors.textSecondary }]}>
-          Expo SDK: {expoVersion}
-        </ThemedText>
-        <ThemedText style={[styles.buildText, { color: colors.textSecondary }]}>
-          Platform: {Platform.OS}
-        </ThemedText>
-      </View>
+      </Link>
     </ParallaxScrollView>
   );
 }
@@ -98,22 +83,13 @@ const styles = StyleSheet.create({
     gap: Spacing.sm,
     marginBottom: Spacing.sm,
   },
-  buildInfo: {
+  versionLink: {
+    alignSelf: 'center',
     marginTop: Spacing.lg,
-    paddingTop: Spacing.md,
-    borderTopWidth: 1,
-    gap: Spacing.xs,
+    paddingVertical: Spacing.sm,
   },
-  buildLabel: {
-    fontSize: 11,
-    fontWeight: '600',
-    textTransform: 'uppercase',
-    letterSpacing: 1,
-    opacity: 0.5,
-    marginBottom: Spacing.xs,
-  },
-  buildText: {
+  versionText: {
     fontSize: 12,
-    fontFamily: 'monospace',
+    opacity: 0.5,
   },
 });

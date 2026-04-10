@@ -30,11 +30,11 @@ const en = {
     contactPhone: '(555) 123-4567',
     locationTitle: 'Location',
     locationBody: '123 Main Street\nYour City, ST 12345',
-    buildInfo: 'Build Info',
   },
   modal: {
-    title: 'This is a modal',
-    goHome: 'Go to home screen',
+    title: 'Debug Info',
+    subtitle: 'Build and environment details',
+    dismiss: 'Dismiss',
   },
 };
 
