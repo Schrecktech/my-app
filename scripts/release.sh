@@ -52,11 +52,14 @@ pkg.version = '${VERSION_NUM}';
 fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2) + '\n');
 "
 
+# Sync package-lock.json with the updated package.json version
+npm install --package-lock-only
+
 # Generate changelog with the new version
 npx git-cliff --bump --output CHANGELOG.md 2>/dev/null
 
-# Commit, tag, push
-git add app.json package.json CHANGELOG.md
+# Commit, then tag
+git add app.json package.json package-lock.json CHANGELOG.md
 git commit -m "chore(release): ${VERSION}"
 git tag "${VERSION}"
 git push
@@ -68,7 +71,7 @@ gh release create "${VERSION}" --title "${VERSION}" --notes "${RELEASE_NOTES}"
 
 echo ""
 echo "Released ${VERSION} successfully!"
-echo "  - Version bumped in app.json and package.json"
+echo "  - Version bumped in app.json, package.json, and package-lock.json"
 echo "  - CHANGELOG.md updated"
 echo "  - Tagged and pushed"
 echo "  - GitHub Release created"
