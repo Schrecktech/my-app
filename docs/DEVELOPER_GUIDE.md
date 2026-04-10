@@ -325,6 +325,25 @@ Defined in `eas.json`:
 3. Expo Router auto-discovers it — no manual route registration
 4. For a new tab, add a `<Tabs.Screen>` entry in `app/(tabs)/_layout.tsx`
 
+## Drawer Navigation
+
+The app uses a drawer (hamburger) menu wrapping the bottom tabs. The drawer contains:
+- **Profile** — account info (editable, not wired to backend)
+- **Activity** — hub for Messages, Transactions, Security History
+- **Settings** — appearance, notifications, language picker
+- **Logout** — placeholder (no auth system yet)
+
+The header bar appears on all screens:
+- **Left:** Hamburger menu icon
+- **Right:** Profile icon (shortcut to Profile screen)
+
+### Adding a Drawer Screen
+
+1. Create `app/(drawer)/new-screen.tsx`
+2. Add a `<Drawer.Screen>` entry in `app/(drawer)/_layout.tsx`
+3. Add i18n strings to `constants/locales/en.ts`
+4. Add icon mapping to `components/ui/icon-symbol.tsx` if using a new icon
+
 ## Adding a New Theme Token
 
 1. Add the token to `constants/theme.ts` (in the appropriate section)

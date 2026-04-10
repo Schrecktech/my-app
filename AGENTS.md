@@ -38,18 +38,31 @@ npx eas-cli build --platform android --profile preview
 
 ```
 app/                    # File-based routes (Expo Router)
-  _layout.tsx           # Root layout (navigation shell)
-  (tabs)/
-    _layout.tsx         # Tab navigator config + tab labels (i18n-ready)
-    index.tsx           # Home screen with hero area
-    explore.tsx         # About screen with info cards
+  _layout.tsx           # Root layout (Stack navigator)
   modal.tsx             # Modal screen
+  (drawer)/
+    _layout.tsx         # Drawer navigator (hamburger menu + header)
+    profile.tsx         # Profile screen (editable, not wired)
+    activity.tsx        # Activity hub (messages, transactions, security)
+    settings.tsx        # Settings (appearance, notifications, language)
+    activity/
+      _layout.tsx       # Activity stack navigator
+      messages.tsx      # Messages placeholder
+      transactions.tsx  # Transactions placeholder
+      security-history.tsx # Security history placeholder
+    (tabs)/
+      _layout.tsx       # Tab navigator config + tab labels (i18n-ready)
+      index.tsx         # Home screen with hero area
+      explore.tsx       # About screen with info cards
 components/             # Reusable UI components
   parallax-scroll-view  # Safe-area-aware parallax header
   themed-text           # Theme-aware text component
   themed-view           # Theme-aware view component
 constants/
   theme.ts              # THE theming file — all visual tokens live here
+  i18n.ts               # i18n setup with locale detection and language override
+  locales/
+    en.ts               # English strings
 docs/
   adr/                  # Architecture Decision Records
 ```
@@ -129,6 +142,7 @@ See `docs/adr/` for recorded decisions. Current ADRs:
 - 0007: Gitleaks secret scanning
 - 0008: EAS build and deployment
 - 0009: Dynamic text size accessibility scaling
+- 0010: Drawer navigation with header bar
 
 ## Backlog (Do Not Implement Unless Asked)
 
@@ -140,3 +154,8 @@ See `docs/adr/` for recorded decisions. Current ADRs:
 - Social media integration (pull/post/share)
 - Screen rotation responsiveness
 - Automated changelog generation with [git-cliff](https://git-cliff.org/) from conventional commits
+- Backend wiring for Profile edits
+- Backend wiring for notification preferences
+- Shopping cart icon in header
+- Logout with actual auth flow
+- Messages, Transactions, Security History real data
