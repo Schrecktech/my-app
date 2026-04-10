@@ -75,6 +75,11 @@ export default function DrawerLayout() {
           drawerIcon: ({ size, color }) => (
             <IconSymbol name="person.circle.fill" size={size} color={color} />
           ),
+          headerLeft: () => (
+            <Pressable onPress={() => router.back()} style={{ marginLeft: Spacing.md }}>
+              <IconSymbol name="chevron.left" size={22} color={colors.tint} />
+            </Pressable>
+          ),
         }}
       />
       <Drawer.Screen
@@ -85,6 +90,11 @@ export default function DrawerLayout() {
           drawerIcon: ({ size, color }) => (
             <IconSymbol name="clock.arrow.circlepath" size={size} color={color} />
           ),
+          headerLeft: () => (
+            <Pressable onPress={() => router.back()} style={{ marginLeft: Spacing.md }}>
+              <IconSymbol name="chevron.left" size={22} color={colors.tint} />
+            </Pressable>
+          ),
         }}
       />
       <Drawer.Screen
@@ -94,6 +104,11 @@ export default function DrawerLayout() {
           title: i18n.t('settings.title'),
           drawerIcon: ({ size, color }) => (
             <IconSymbol name="gearshape.fill" size={size} color={color} />
+          ),
+          headerLeft: () => (
+            <Pressable onPress={() => router.back()} style={{ marginLeft: Spacing.md }}>
+              <IconSymbol name="chevron.left" size={22} color={colors.tint} />
+            </Pressable>
           ),
         }}
       />
