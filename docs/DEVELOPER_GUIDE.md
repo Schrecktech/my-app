@@ -331,6 +331,19 @@ Defined in `eas.json`:
 2. Import and use it in your component: `import { Colors, Spacing } from '@/constants/theme'`
 3. Never use raw values — always reference the theme
 
+## Adding a New Language
+
+1. Create `constants/locales/<lang>.ts` — copy `en.ts` and translate the values
+2. Import and register in `constants/i18n.ts`: `const i18n = new I18n({ en, es })`
+3. Done — devices set to that language will use it automatically
+4. Missing keys fall back to English — partial translations are safe to ship
+
+## Adding a New Translatable String
+
+1. Add the key and English value to `constants/locales/en.ts` in the appropriate namespace
+2. Use `i18n.t('namespace.key')` in your component
+3. Add translations to other locale files (optional — English fallback is automatic)
+
 ## Architecture Decisions
 
 Recorded in `docs/adr/`. To add a new ADR:

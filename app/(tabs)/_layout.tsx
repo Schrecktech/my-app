@@ -3,14 +3,9 @@ import React from 'react';
 
 import { HapticTab } from '@/components/haptic-tab';
 import { IconSymbol } from '@/components/ui/icon-symbol';
+import i18n from '@/constants/i18n';
 import { Colors } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
-
-// Tab labels — change these for multilingual support
-const TAB_LABELS = {
-  home: 'Home',
-  about: 'About',
-};
 
 const TAB_ICON_SIZE = 32;
 
@@ -28,14 +23,14 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: TAB_LABELS.home,
+          title: i18n.t('tabs.home'),
           tabBarIcon: ({ color }) => <IconSymbol size={TAB_ICON_SIZE} name="house.fill" color={color} />,
         }}
       />
       <Tabs.Screen
         name="about"
         options={{
-          title: TAB_LABELS.about,
+          title: i18n.t('tabs.about'),
           tabBarIcon: ({ color }) => <IconSymbol size={TAB_ICON_SIZE} name="info.circle.fill" color={color} />,
         }}
       />

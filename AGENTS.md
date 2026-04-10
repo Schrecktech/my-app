@@ -90,6 +90,7 @@ See `docs/DEVELOPER_GUIDE.md` for full workflow details.
 - **Spacing scale** — use `Spacing.sm`, `Spacing.md`, `Spacing.lg` from theme, not magic numbers
 - **File-based routing** — screens go in `app/`, components go in `components/`
 - **Tab labels** — defined in `TAB_LABELS` constant in `app/(tabs)/_layout.tsx` for i18n readiness
+- **i18n** — all user-facing strings go in `constants/locales/en.ts`, never hardcoded in components. Use `i18n.t('namespace.key')` to reference them.
 
 ## Theming System
 

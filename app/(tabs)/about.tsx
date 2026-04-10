@@ -5,13 +5,14 @@ import ParallaxScrollView from '@/components/parallax-scroll-view';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { IconSymbol } from '@/components/ui/icon-symbol';
+import i18n from '@/constants/i18n';
 import { Colors, Spacing, Radii } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 
 const BUILD_ID = Constants.expoConfig?.extra?.buildId ?? 'unknown';
 const APP_VERSION = '0.2.0';
 
-export default function ExploreScreen() {
+export default function AboutScreen() {
   const colorScheme = useColorScheme() ?? 'light';
   const colors = Colors[colorScheme];
 
@@ -31,38 +32,37 @@ export default function ExploreScreen() {
         />
       }>
       <ThemedView style={styles.section}>
-        <ThemedText type="title">About</ThemedText>
+        <ThemedText type="title">{i18n.t('about.title')}</ThemedText>
         <ThemedText style={{ color: colors.textSecondary }}>
-          Your story goes here. Tell your customers who you are and what you do.
+          {i18n.t('about.description')}
         </ThemedText>
       </ThemedView>
 
       <View style={[styles.card, { backgroundColor: colors.surface, borderColor: colors.border }]}>
-        <ThemedText type="subtitle">Hours</ThemedText>
+        <ThemedText type="subtitle">{i18n.t('about.hoursTitle')}</ThemedText>
         <ThemedText style={{ color: colors.textSecondary }}>
-          Mon–Fri: 9am – 9pm{'\n'}
-          Sat–Sun: 10am – 6pm
+          {i18n.t('about.hoursBody')}
         </ThemedText>
       </View>
 
       <View style={[styles.card, { backgroundColor: colors.surface, borderColor: colors.border }]}>
-        <ThemedText type="subtitle">Contact</ThemedText>
+        <ThemedText type="subtitle">{i18n.t('about.contactTitle')}</ThemedText>
         <ThemedText style={{ color: colors.textSecondary }}>
-          hello@yourbrand.com{'\n'}
-          (555) 123-4567
+          {i18n.t('about.contactEmail')}
+          {'\n'}
+          {i18n.t('about.contactPhone')}
         </ThemedText>
       </View>
 
       <View style={[styles.card, { backgroundColor: colors.surface, borderColor: colors.border }]}>
-        <ThemedText type="subtitle">Location</ThemedText>
+        <ThemedText type="subtitle">{i18n.t('about.locationTitle')}</ThemedText>
         <ThemedText style={{ color: colors.textSecondary }}>
-          123 Main Street{'\n'}
-          Your City, ST 12345
+          {i18n.t('about.locationBody')}
         </ThemedText>
       </View>
 
       <View style={[styles.buildInfo, { borderColor: colors.border }]}>
-        <ThemedText style={styles.buildLabel}>Build Info</ThemedText>
+        <ThemedText style={styles.buildLabel}>{i18n.t('about.buildInfo')}</ThemedText>
         <ThemedText style={[styles.buildText, { color: colors.textSecondary }]}>
           {appName} v{nativeVersion}
         </ThemedText>
