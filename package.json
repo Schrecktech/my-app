@@ -10,7 +10,7 @@
     "web": "expo start --web",
     "lint": "expo lint",
     "changelog": "git-cliff --output CHANGELOG.md",
-    "release": "git-cliff --output CHANGELOG.md --tag"
+    "release": "bash scripts/release.sh"
   },
   "dependencies": {
     "@expo/vector-icons": "^15.0.3",

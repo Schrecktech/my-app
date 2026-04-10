@@ -30,8 +30,8 @@ npx expo lint
 # Generate changelog (unreleased entries)
 npm run changelog
 
-# Generate changelog for a release
-npm run release -- vX.Y.Z
+# Release (auto-detect version, bump, changelog, tag, push, GitHub Release)
+npm run release
 
 # Build iOS (cloud, requires EAS login)
 npx eas-cli build --platform ios --profile preview
@@ -92,12 +92,14 @@ After committing, run `npm run changelog` to auto-generate the `[Unreleased]` se
 [Semantic Versioning](https://semver.org/) v2.0.0: `MAJOR.MINOR.PATCH`
 - MAJOR = incompatible changes, MINOR = new features, PATCH = bug fixes
 
-**When bumping version, update all four locations:**
-- `app.json` → `expo.version` (display version string)
-- `app.json` → `expo.ios.buildNumber` (string, match version)
-- `app.json` → `expo.android.versionCode` (integer, increment)
-- `package.json` → `version`
-- Run `npm run release -- vX.Y.Z` to generate the versioned changelog section
+**To release:** Run `npm run release`. This automatically:
+- Detects the next version from conventional commits (feat=minor, fix=patch, breaking=major)
+- Bumps `app.json` (expo.version, ios.buildNumber, android.versionCode) and `package.json`
+- Android versionCode uses minutes since Unix epoch (deterministic, traceable)
+- Generates the changelog via git-cliff
+- Commits as `chore(release): vX.Y.Z`, tags, pushes, and creates a GitHub Release
+
+Note: releases must be at least 1 minute apart (versionCode granularity).
 
 ## Parallel Work (Git Worktree)
 

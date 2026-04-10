@@ -131,15 +131,22 @@ npm run changelog
 
 This runs git-cliff to auto-generate the `## [Unreleased]` section from your conventional commits. Only `feat`, `fix`, `perf`, `refactor`, `security`, and `deprecate` commits appear — others (docs, style, test, build, ci, chore) are omitted.
 
-The existing hand-written changelog entries are preserved. git-cliff only modifies the `[Unreleased]` section.
+The changelog is fully regenerated from commit history each time — it's a pure function of your git log and tags.
 
-**At release time**, convert unreleased entries to a versioned section:
+**At release time**, run:
 
 ```bash
-npm run release -- vX.Y.Z
+npm run release
 ```
 
-This replaces the `[Unreleased]` heading with `[X.Y.Z] - YYYY-MM-DD`. You still need to manually bump version numbers in `app.json` (x3) and `package.json`.
+This single command:
+1. Detects the next semantic version from conventional commits (feat=minor, fix=patch, breaking=major)
+2. Bumps version in `app.json` (expo.version, ios.buildNumber, android.versionCode) and `package.json`
+3. Generates the changelog with the new version
+4. Commits as `chore(release): vX.Y.Z`, tags, and pushes
+5. Creates a GitHub Release with release notes
+
+Android `versionCode` uses minutes since Unix epoch — deterministic and traceable from the commit timestamp. Releases must be at least 1 minute apart.
 
 ### 6. Secret Scanning
 
@@ -259,20 +266,18 @@ This project follows [Semantic Versioning](https://semver.org/) v2.0.0.
 
 ### Bumping the Version
 
-When releasing a new version, update **all four locations**:
+Run `npm run release` — it handles everything automatically. The script updates all four version locations:
 
-| File | Field | Format | Example |
-|------|-------|--------|---------|
-| `app.json` | `expo.version` | `MAJOR.MINOR.PATCH` | `0.4.0` |
-| `app.json` | `expo.ios.buildNumber` | String, match version | `"0.4.0"` |
-| `app.json` | `expo.android.versionCode` | Integer, increment | `4` |
-| `package.json` | `version` | `MAJOR.MINOR.PATCH` | `0.4.0` |
-
-Also run `npm run release -- vX.Y.Z` to generate the versioned changelog section.
+| File | Field | Format |
+|------|-------|--------|
+| `app.json` | `expo.version` | `MAJOR.MINOR.PATCH` |
+| `app.json` | `expo.ios.buildNumber` | String, matches version |
+| `app.json` | `expo.android.versionCode` | Integer, minutes since Unix epoch |
+| `package.json` | `version` | `MAJOR.MINOR.PATCH` |
 
 **Version source:** `appVersionSource` is `"local"` in `eas.json`, meaning build numbers come from `app.json`, not EAS remote. This keeps Xcode, the app, and the codebase in sync.
 
-**Android `versionCode`:** Google requires an integer that increments with each release. Convention: use the minor version number (e.g., `0.4.0` → `4`, `1.0.0` → `100`, `1.2.3` → `123`).
+**Android `versionCode`:** Uses minutes since Unix epoch — deterministic, always increasing, and traceable to the release timestamp. Google Play requires this to be a positive integer below 2,100,000,000 (sufficient until ~2069). Releases must be at least 1 minute apart.
 
 ## Git Worktree Workflow (Multi-Agent / Parallel Development)
 
