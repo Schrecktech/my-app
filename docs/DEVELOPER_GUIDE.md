@@ -170,6 +170,28 @@ npx eas build --platform ios --profile development --local --output ./build/myap
 npx expo start --dev-client
 ```
 
+#### iOS — Simulator (macOS)
+
+To run the app in the Xcode iOS Simulator without a device build:
+
+```bash
+npx expo start --ios
+```
+
+To test a local `.ipa` build in the simulator:
+
+```bash
+# Boot a simulator (if not already running)
+xcrun simctl boot "iPhone 16"
+open -a Simulator
+
+# Install and launch
+xcrun simctl install booted ./build/myapp-<commit-hash>.ipa
+xcrun simctl launch booted com.scottschreckengaust.myapp
+```
+
+> **Note:** `.ipa` files built with the `preview` profile are signed for device distribution and may not install on the simulator. Use `npx expo start --ios` for simulator testing, or build with the `development` profile for simulator-compatible binaries.
+
 #### iOS — Cloud Build (any OS)
 
 Use when you don't have a Mac available, or for CI/CD.
