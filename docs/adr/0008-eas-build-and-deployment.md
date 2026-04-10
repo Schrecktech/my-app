@@ -32,7 +32,7 @@ Use **Expo Application Services (EAS)** for building, signing, and distributing 
 
 ### Version Management
 
-`"appVersionSource": "remote"` in `eas.json` delegates build number management to EAS. This prevents version conflicts when building from multiple machines.
+`"appVersionSource": "local"` in `eas.json` — build numbers come from `app.json` (iOS `buildNumber`, Android `versionCode`), not from an EAS remote counter. This keeps Xcode, the app, and the codebase in sync. See ADR-0005 for the full version bump checklist.
 
 ### Code Signing
 

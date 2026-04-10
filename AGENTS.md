@@ -86,6 +86,13 @@ After committing, update `CHANGELOG.md` under `## [Unreleased]` using Keep a Cha
 [Semantic Versioning](https://semver.org/) v2.0.0: `MAJOR.MINOR.PATCH`
 - MAJOR = incompatible changes, MINOR = new features, PATCH = bug fixes
 
+**When bumping version, update all four locations:**
+- `app.json` → `expo.version` (display version string)
+- `app.json` → `expo.ios.buildNumber` (string, match version)
+- `app.json` → `expo.android.versionCode` (integer, increment)
+- `package.json` → `version`
+- `CHANGELOG.md` → move Unreleased entries to versioned section
+
 ## Parallel Work (Git Worktree)
 
 Use `git worktree` for isolated parallel development:

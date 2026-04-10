@@ -253,7 +253,22 @@ This project follows [Semantic Versioning](https://semver.org/) v2.0.0.
 
 **Pre-release:** Append hyphen + identifiers: `1.0.0-alpha.1`, `1.0.0-beta.2`
 
-**Current version management:** EAS manages build versions remotely (`"appVersionSource": "remote"` in `eas.json`). The `CHANGELOG.md` tracks the logical version.
+### Bumping the Version
+
+When releasing a new version, update **all four locations**:
+
+| File | Field | Format | Example |
+|------|-------|--------|---------|
+| `app.json` | `expo.version` | `MAJOR.MINOR.PATCH` | `0.4.0` |
+| `app.json` | `expo.ios.buildNumber` | String, match version | `"0.4.0"` |
+| `app.json` | `expo.android.versionCode` | Integer, increment | `4` |
+| `package.json` | `version` | `MAJOR.MINOR.PATCH` | `0.4.0` |
+
+Also update `CHANGELOG.md`: move `## [Unreleased]` entries to a new versioned section.
+
+**Version source:** `appVersionSource` is `"local"` in `eas.json`, meaning build numbers come from `app.json`, not EAS remote. This keeps Xcode, the app, and the codebase in sync.
+
+**Android `versionCode`:** Google requires an integer that increments with each release. Convention: use the minor version number (e.g., `0.4.0` → `4`, `1.0.0` → `100`, `1.2.3` → `123`).
 
 ## Git Worktree Workflow (Multi-Agent / Parallel Development)
 
