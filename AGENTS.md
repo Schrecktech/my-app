@@ -108,7 +108,7 @@ The entire app's visual identity is controlled by `constants/theme.ts`:
 - Hero text uses `adjustsFontSizeToFit` and `numberOfLines` to handle large text sizes
 - Parallax header accounts for iOS safe area inset (status bar)
 - Tab bar icons are sized to fill available space without exceeding bounds
-- **Backlogged:** Screen rotation support, dynamic type scaling for all components
+- **Backlogged:** Screen rotation support
 
 ## Security Considerations
 
@@ -128,6 +128,7 @@ See `docs/adr/` for recorded decisions. Current ADRs:
 - 0006: Git worktree for parallel/multi-agent development
 - 0007: Gitleaks secret scanning
 - 0008: EAS build and deployment
+- 0009: Dynamic text size accessibility scaling
 
 ## Backlog (Do Not Implement Unless Asked)
 
@@ -138,5 +139,4 @@ See `docs/adr/` for recorded decisions. Current ADRs:
 - Bluetooth + WiFi detection for onsite customers
 - Social media integration (pull/post/share)
 - Screen rotation responsiveness
-- Dynamic text size accessibility scaling
 - Automated changelog generation with [git-cliff](https://git-cliff.org/) from conventional commits

@@ -7,6 +7,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.0] - 2026-04-10
+
+### Added
+
+- Dynamic text size accessibility scaling — respects iOS Dynamic Type and Android font scale
+- `Accessibility.maxFontSizeMultiplier` theme token (default: 2x cap)
+- ADR-0009: Dynamic text size accessibility scaling
+
+### Changed
+
+- ThemedText applies `maxFontSizeMultiplier` globally with explicit lineHeight on all type variants
+- Parallax header height scales proportionally with system font size
+- Modal debug rows wrap gracefully at large text sizes
+- Hero text center-aligned for better wrapping at scaled sizes
+
+### Fixed
+
+- Text clipping at large accessibility text sizes (160%+)
+
 ## [0.3.0] - 2026-04-10
 
 ### Added
