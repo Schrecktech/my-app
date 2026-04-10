@@ -20,14 +20,12 @@ export default function HomeScreen() {
         <View style={styles.heroContent}>
           <ThemedText
             style={[styles.heroTitle, { color: Colors[colorScheme].heroText }]}
-            numberOfLines={1}
-            adjustsFontSizeToFit>
+            numberOfLines={1}>
             {i18n.t('home.heroTitle')}
           </ThemedText>
           <ThemedText
             style={[styles.heroSubtitle, { color: Colors[colorScheme].heroText }]}
-            numberOfLines={1}
-            adjustsFontSizeToFit>
+            numberOfLines={1}>
             {i18n.t('home.heroSubtitle')}
           </ThemedText>
         </View>
