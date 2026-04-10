@@ -15,6 +15,10 @@ const getBuildDate = (): string => {
 
 export default ({ config }: ConfigContext): ExpoConfig => ({
   ...(config as ExpoConfig),
+  plugins: [
+    ...(config.plugins ?? []),
+    'expo-localization',
+  ],
   extra: {
     ...config.extra,
     buildId: `${getBuildDate()}-${getCommitHash()}`,
