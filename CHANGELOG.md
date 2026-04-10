@@ -11,8 +11,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Debug Info modal with build details (version, build ID, SDK, platform, OS, bundle ID)
-- Tappable version label on About screen that opens debug modal
+- Internationalization (i18n) with `i18n-js` and `expo-localization` — all user-facing strings in `constants/locales/en.ts`
+- Debug Info modal accessible via tappable `vX.Y.Z` on About screen
+- Dynamic build ID from git commit hash (`<ISO date>-<short hash>`)
+- Build artifact output to `build/` directory with commit-based naming
+- Web icon mapping for cross-platform icon support
+- iOS Simulator instructions in developer guide
 - AGENTS.md for AI agent context following [agents.md](https://agents.md) spec
 - Project-level `.claude/settings.json` with recommended plugins
 - `docs/DEVELOPER_GUIDE.md` covering full development cycle
@@ -21,24 +25,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Quality gates table with current and planned tooling
 - ADR-0007: Gitleaks secret scanning
 - ADR-0008: EAS build and deployment
+- ADR for i18n adoption
 - Gitleaks as active quality gate
 - Production dependency audit (`npm audit --omit=dev`) as active quality gate
-- `eas-cli` as project dev dependency for reproducibility
 - Local macOS build instructions in developer guide
 
 ### Changed
 
+- Renamed `explore.tsx` to `about.tsx` to match tab label
+- Tab labels, screen titles, and all UI text wired through i18n
+- Modal redesigned: shows version, build ID, platform, OS version, Expo SDK
+- Modal dismiss uses `router.back()` to return to originating screen
+- Build info removed from About screen footer, replaced by subtle version tap
+- Reduced parallax header height for better proportions on web
+- All `eas` commands use `npx eas-cli` (no global install needed)
+- EAS CLI version pinned in `eas.json`
 - Version bumped to 0.3.0 across package.json, app.json, and changelog
-- Build info moved from About screen footer to dedicated Debug Info modal
-- Developer guide expanded with commit format, changelog process, versioning, and worktree workflows
-- All `eas` commands use `npx eas` prefix (no global install needed)
-- EAS CLI version pinned to 18.5.0 in eas.json
+- Git author/committer email corrected across all commits
 
 ### Fixed
 
-- Hero title text clipping with explicit lineHeight
+- Hero title text clipping with explicit lineHeight and vertical padding
 - Duplicate `npx npx` in developer guide
-- Git author/committer email corrected across all commits
+- Replaced `npx eas` with `npx eas-cli` to avoid namesquatting risk
+- Web platform icon rendering
 
 ## [0.2.0] - 2026-04-09
 
@@ -47,13 +57,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Architecture Decision Records in `docs/adr/` (ADR-0000 through ADR-0002)
 - `eas.json` with development, preview, and production build profiles
 - Remote version source for EAS builds
+- Build info section on About screen for deployment verification
 
 ### Changed
 
 - Parallax header accounts for iOS safe area inset (status bar)
 - Hero text uses `adjustsFontSizeToFit` to handle large accessibility text sizes
 - Tab bar icons increased from 28px to 32px
-- Tab labels extracted to `TAB_LABELS` constant for multilingual support
+- Tab labels extracted to constant for multilingual support
 - Removed `.superpowers/` from `.gitignore` to preserve brainstorming artifacts
 
 ### Fixed

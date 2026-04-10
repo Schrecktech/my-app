@@ -139,3 +139,4 @@ See `docs/adr/` for recorded decisions. Current ADRs:
 - Social media integration (pull/post/share)
 - Screen rotation responsiveness
 - Dynamic text size accessibility scaling
+- Automated changelog generation with [git-cliff](https://git-cliff.org/) from conventional commits
