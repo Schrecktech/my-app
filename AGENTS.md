@@ -128,7 +128,7 @@ The entire app's visual identity is controlled by `constants/theme.ts`:
 - Hero text uses `adjustsFontSizeToFit` and `numberOfLines` to handle large text sizes
 - Parallax header accounts for iOS safe area inset (status bar)
 - Tab bar icons are sized to fill available space without exceeding bounds
-- **Backlogged:** Screen rotation support
+- Screen rotation supported — layouts adapt via `useWindowDimensions()`
 
 ## Security Considerations
 
@@ -150,6 +150,7 @@ See `docs/adr/` for recorded decisions. Current ADRs:
 - 0008: EAS build and deployment
 - 0009: Dynamic text size accessibility scaling
 - 0010: Drawer navigation with header bar
+- 0011: Screen rotation responsiveness
 
 ## Backlog (Do Not Implement Unless Asked)
 
@@ -159,7 +160,6 @@ See `docs/adr/` for recorded decisions. Current ADRs:
 - Push notifications
 - Bluetooth + WiFi detection for onsite customers
 - Social media integration (pull/post/share)
-- Screen rotation responsiveness
 - Automated changelog generation with [git-cliff](https://git-cliff.org/) from conventional commits
 - Backend wiring for Profile edits
 - Backend wiring for notification preferences

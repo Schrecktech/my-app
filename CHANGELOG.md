@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.0] - 2026-04-10
+
+### Added
+
+- Screen rotation support — app rotates freely on all platforms
+- Landscape layout for Home screen cards (2-column side-by-side)
+- ADR-0011: Screen rotation responsiveness
+
+### Changed
+
+- Orientation unlocked from portrait-only to default (all orientations)
+- Parallax header height reduces to 60% in landscape to preserve content space
+
 ## [0.5.0] - 2026-04-10
 
 ### Added

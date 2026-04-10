@@ -2,8 +2,8 @@
   "expo": {
     "name": "my-app",
     "slug": "my-app",
-    "version": "0.5.0",
-    "orientation": "portrait",
+    "version": "0.6.0",
+    "orientation": "default",
     "icon": "./assets/images/icon.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
@@ -11,7 +11,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.scottschreckengaust.myapp",
-      "buildNumber": "0.4.0",
+      "buildNumber": "0.6.0",
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false
       }
@@ -23,7 +23,7 @@
         "backgroundImage": "./assets/images/android-icon-background.png",
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
-      "versionCode": 4,
+      "versionCode": 6,
       "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false
     },

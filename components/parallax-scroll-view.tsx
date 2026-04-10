@@ -1,5 +1,5 @@
 import type { PropsWithChildren, ReactElement } from 'react';
-import { PixelRatio, StyleSheet } from 'react-native';
+import { PixelRatio, StyleSheet, useWindowDimensions } from 'react-native';
 import Animated, {
   interpolate,
   useAnimatedRef,
@@ -26,12 +26,14 @@ export default function ParallaxScrollView({
   headerBackgroundColor,
 }: Props) {
   const insets = useSafeAreaInsets();
+  const { width, height } = useWindowDimensions();
+  const isLandscape = width > height;
   const backgroundColor = useThemeColor({}, 'background');
   const colorScheme = useColorScheme() ?? 'light';
   const scrollRef = useAnimatedRef<Animated.ScrollView>();
   const scrollOffset = useScrollOffset(scrollRef);
   const fontScale = PixelRatio.getFontScale();
-  const headerHeight = BASE_HEADER_HEIGHT * Math.min(fontScale, 2);
+  const headerHeight = BASE_HEADER_HEIGHT * Math.min(fontScale, 2) * (isLandscape ? 0.6 : 1);
   const totalHeaderHeight = headerHeight + insets.top;
   const headerAnimatedStyle = useAnimatedStyle(() => {
     return {

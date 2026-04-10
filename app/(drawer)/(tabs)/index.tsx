@@ -1,4 +1,4 @@
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, useWindowDimensions } from 'react-native';
 
 import ParallaxScrollView from '@/components/parallax-scroll-view';
 import { ThemedText } from '@/components/themed-text';
@@ -10,6 +10,8 @@ import { useColorScheme } from '@/hooks/use-color-scheme';
 export default function HomeScreen() {
   const colorScheme = useColorScheme() ?? 'light';
   const colors = Colors[colorScheme];
+  const { width, height } = useWindowDimensions();
+  const isLandscape = width > height;
 
   return (
     <ParallaxScrollView
@@ -37,18 +39,20 @@ export default function HomeScreen() {
         </ThemedText>
       </ThemedView>
 
-      <View style={[styles.card, { backgroundColor: colors.surface, borderColor: colors.border }]}>
-        <ThemedText type="subtitle">{i18n.t('home.getStartedTitle')}</ThemedText>
-        <ThemedText style={{ color: colors.textSecondary }}>
-          {i18n.t('home.getStartedDescription')}
-        </ThemedText>
-      </View>
+      <View style={isLandscape ? styles.cardRow : undefined}>
+        <View style={[styles.card, isLandscape && styles.cardHalf, { backgroundColor: colors.surface, borderColor: colors.border }]}>
+          <ThemedText type="subtitle">{i18n.t('home.getStartedTitle')}</ThemedText>
+          <ThemedText style={{ color: colors.textSecondary }}>
+            {i18n.t('home.getStartedDescription')}
+          </ThemedText>
+        </View>
 
-      <View style={[styles.card, { backgroundColor: colors.surface, borderColor: colors.border }]}>
-        <ThemedText type="subtitle">{i18n.t('home.builtForChangeTitle')}</ThemedText>
-        <ThemedText style={{ color: colors.textSecondary }}>
-          {i18n.t('home.builtForChangeDescription')}
-        </ThemedText>
+        <View style={[styles.card, isLandscape && styles.cardHalf, { backgroundColor: colors.surface, borderColor: colors.border }]}>
+          <ThemedText type="subtitle">{i18n.t('home.builtForChangeTitle')}</ThemedText>
+          <ThemedText style={{ color: colors.textSecondary }}>
+            {i18n.t('home.builtForChangeDescription')}
+          </ThemedText>
+        </View>
       </View>
     </ParallaxScrollView>
   );
@@ -84,5 +88,12 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     gap: Spacing.sm,
     marginBottom: Spacing.sm,
+  },
+  cardRow: {
+    flexDirection: 'row',
+    gap: Spacing.sm,
+  },
+  cardHalf: {
+    flex: 1,
   },
 });
