@@ -27,6 +27,12 @@ npx tsc --noEmit
 # Lint
 npx expo lint
 
+# Generate changelog (unreleased entries)
+npm run changelog
+
+# Generate changelog for a release
+npm run release -- vX.Y.Z
+
 # Build iOS (cloud, requires EAS login)
 npx eas-cli build --platform ios --profile preview
 
@@ -79,7 +85,7 @@ Types: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `build`, `ci`
 Scopes: `theme`, `home`, `about`, `nav`, `build`, `docs`, `adr`
 Breaking changes: append `!` after type/scope
 
-After committing, update `CHANGELOG.md` under `## [Unreleased]` using Keep a Changelog categories: Added, Changed, Deprecated, Removed, Fixed, Security.
+After committing, run `npm run changelog` to auto-generate the `[Unreleased]` section from conventional commits via git-cliff.
 
 ## Versioning
 
@@ -91,7 +97,7 @@ After committing, update `CHANGELOG.md` under `## [Unreleased]` using Keep a Cha
 - `app.json` → `expo.ios.buildNumber` (string, match version)
 - `app.json` → `expo.android.versionCode` (integer, increment)
 - `package.json` → `version`
-- `CHANGELOG.md` → move Unreleased entries to versioned section
+- Run `npm run release -- vX.Y.Z` to generate the versioned changelog section
 
 ## Parallel Work (Git Worktree)
 
@@ -151,6 +157,7 @@ See `docs/adr/` for recorded decisions. Current ADRs:
 - 0009: Dynamic text size accessibility scaling
 - 0010: Drawer navigation with header bar
 - 0011: Screen rotation responsiveness
+- 0012: Automated changelog with git-cliff
 
 ## Backlog (Do Not Implement Unless Asked)
 
@@ -160,9 +167,10 @@ See `docs/adr/` for recorded decisions. Current ADRs:
 - Push notifications
 - Bluetooth + WiFi detection for onsite customers
 - Social media integration (pull/post/share)
-- Automated changelog generation with [git-cliff](https://git-cliff.org/) from conventional commits
 - Backend wiring for Profile edits
 - Backend wiring for notification preferences
 - Shopping cart icon in header
 - Logout with actual auth flow
 - Messages, Transactions, Security History real data
+- Unit testing (Jest + React Native Testing Library)
+- End-to-end testing (Detox or Maestro)
