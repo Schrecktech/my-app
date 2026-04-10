@@ -19,11 +19,17 @@ Format: `MAJOR.MINOR.PATCH`
 
 Pre-release versions use hyphen notation: `1.0.0-alpha.1`
 
-EAS manages build numbers remotely (`"appVersionSource": "remote"` in `eas.json`). The logical version is tracked in `CHANGELOG.md` and `package.json`.
+Build numbers use local version source (`"appVersionSource": "local"` in `eas.json`) so they match the app version. When bumping, update all four locations:
+
+- `app.json` → `expo.version` (display version)
+- `app.json` → `expo.ios.buildNumber` (string, match version)
+- `app.json` → `expo.android.versionCode` (integer, increment)
+- `package.json` → `version`
 
 ## Consequences
 
 - Version numbers communicate intent to users and app store reviewers
 - Automated version bumping can derive from conventional commits
 - App store submissions have predictable version progression
-- EAS remote versioning avoids manual build number conflicts
+- Build numbers match display version — Xcode shows the real version, not an opaque counter
+- Requires manual updates in four places (trade-off for clarity over automation)
