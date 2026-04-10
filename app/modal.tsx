@@ -15,32 +15,21 @@ export default function DebugModal() {
   const colors = Colors[colorScheme];
   const router = useRouter();
 
-  const appName = Constants.expoConfig?.name ?? 'my-app';
   const appVersion = Constants.expoConfig?.version ?? '0.0.0';
   const expoVersion = Constants.expoConfig?.sdkVersion ?? 'unknown';
-  const bundleId = Platform.select({
-    ios: Constants.expoConfig?.ios?.bundleIdentifier,
-    android: Constants.expoConfig?.android?.package,
-    default: 'N/A',
-  }) ?? 'N/A';
 
   const rows = [
-    { label: i18n.t('modal.labelApp'), value: appName },
-    { label: i18n.t('modal.labelBuild'), value: BUILD_ID },
-    { label: i18n.t('modal.labelExpoSdk'), value: expoVersion },
     { label: i18n.t('modal.labelPlatform'), value: Platform.OS },
     { label: i18n.t('modal.labelOsVersion'), value: Platform.Version?.toString() ?? 'unknown' },
-    { label: i18n.t('modal.labelBundleId'), value: bundleId },
-    { label: i18n.t('modal.labelNewArch'), value: Constants.expoConfig?.newArchEnabled ? 'Yes' : 'No' },
+    { label: i18n.t('modal.labelExpoSdk'), value: expoVersion },
   ];
 
   return (
     <ThemedView style={styles.container}>
       <ScrollView contentContainerStyle={styles.scroll}>
         <ThemedText type="title" style={styles.title}>v{appVersion}</ThemedText>
-        <ThemedText type="subtitle" style={styles.header}>{i18n.t('modal.header')}</ThemedText>
-        <ThemedText style={[styles.subtitle, { color: colors.textSecondary }]}>
-          {i18n.t('modal.subtitle')}
+        <ThemedText style={[styles.buildId, { color: colors.textSecondary }]}>
+          {BUILD_ID}
         </ThemedText>
 
         {rows.map((row) => (
@@ -71,10 +60,7 @@ const styles = StyleSheet.create({
   title: {
     marginBottom: Spacing.xs,
   },
-  header: {
-    marginBottom: Spacing.xs,
-  },
-  subtitle: {
+  buildId: {
     fontSize: 16,
     marginBottom: Spacing.xl,
   },

@@ -32,16 +32,10 @@ const en = {
     locationBody: '123 Main Street\nYour City, ST 12345',
   },
   modal: {
-    header: 'Details',
-    subtitle: 'Build and environment details',
     dismiss: 'Dismiss',
-    labelApp: 'App',
-    labelBuild: 'Build',
-    labelExpoSdk: 'Expo SDK',
     labelPlatform: 'Platform',
     labelOsVersion: 'OS Version',
-    labelBundleId: 'Bundle ID',
-    labelNewArch: 'New Arch',
+    labelExpoSdk: 'Expo SDK',
   },
 };
 
