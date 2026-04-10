@@ -13,7 +13,7 @@ import { useColorScheme } from '@/hooks/use-color-scheme';
 import { useThemeColor } from '@/hooks/use-theme-color';
 import { Spacing } from '@/constants/theme';
 
-const HEADER_HEIGHT = 250;
+const HEADER_HEIGHT = 125;
 
 type Props = PropsWithChildren<{
   headerImage: ReactElement;
