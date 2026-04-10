@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add automated release script with version detection
+
 ### Changed
 
 - Simplify changelog to full regeneration with --output
