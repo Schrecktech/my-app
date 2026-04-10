@@ -32,6 +32,7 @@ const en = {
     locationBody: '123 Main Street\nYour City, ST 12345',
   },
   modal: {
+    title: 'Details',
     dismiss: 'Dismiss',
     labelPlatform: 'Platform',
     labelOsVersion: 'OS Version',
