@@ -90,6 +90,7 @@ const styles = StyleSheet.create({
   },
   versionText: {
     fontSize: 12,
+    lineHeight: 18,
     opacity: 0.5,
   },
 });
