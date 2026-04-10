@@ -8,7 +8,7 @@ import { IconSymbol } from '@/components/ui/icon-symbol';
 import { Colors, Spacing, Radii } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 
-const BUILD_ID = '2026-04-09-8b323fa';
+const BUILD_ID = Constants.expoConfig?.extra?.buildId ?? 'unknown';
 const APP_VERSION = '0.2.0';
 
 export default function ExploreScreen() {

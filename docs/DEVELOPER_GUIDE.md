@@ -155,9 +155,8 @@ Requires macOS with Xcode, CocoaPods, and Fastlane installed.
 
 ```bash
 # Build locally — typically 2-5 minutes
-npx eas build --platform ios --profile preview --local
+npx eas build --platform ios --profile preview --local --output ./build/myapp-$(git rev-parse --short HEAD).ipa
 
-# Output: .ipa file in the current directory
 # Install via: drag to Xcode Devices window, or use Apple Configurator
 ```
 
@@ -165,7 +164,7 @@ For development iteration with hot reload (build once, iterate fast):
 
 ```bash
 # One-time: build the dev client locally
-npx eas build --platform ios --profile development --local
+npx eas build --platform ios --profile development --local --output ./build/myapp-$(git rev-parse --short HEAD).ipa
 
 # Then start the dev server — changes appear instantly, no rebuild needed
 npx expo start --dev-client
@@ -189,7 +188,7 @@ The build runs in Expo's cloud (~10-15 min including queue). When done, you get 
 Requires Android SDK (bundled with Android Studio).
 
 ```bash
-npx eas build --platform android --profile preview --local
+npx eas build --platform android --profile preview --local --output ./build/myapp-$(git rev-parse --short HEAD).apk
 ```
 
 #### Android — Cloud Build (any OS)
