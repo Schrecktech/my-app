@@ -66,6 +66,12 @@ export const Radii = {
   full: 9999,
 };
 
+// ─── Accessibility ──────────────────────────────────────
+export const Accessibility = {
+  /** Cap font scaling at 2x to prevent layout breakage at extreme sizes */
+  maxFontSizeMultiplier: 2,
+};
+
 // ─── Fonts ───────────────────────────────────────────────
 export const Fonts = Platform.select({
   ios: {
