@@ -15,7 +15,7 @@ Building iOS apps normally requires a Mac with Xcode. Development happens on bot
 
 ## Decision
 
-Use **Expo Application Services (EAS)** for building, signing, and distributing the app. EAS CLI is pinned as a project dev dependency (`eas-cli` in `devDependencies`) and invoked via `npx eas`.
+Use **Expo Application Services (EAS)** for building, signing, and distributing the app. EAS CLI is invoked via `npx eas-cli` (no local or global install). The minimum CLI version is enforced by the `cli.version` field in `eas.json`.
 
 ### Build Profiles (eas.json)
 
@@ -27,8 +27,8 @@ Use **Expo Application Services (EAS)** for building, signing, and distributing 
 
 ### Build Modes
 
-- **Cloud build** (`npx eas build --platform ios`) — runs on Expo's servers, works from any OS, ~10-15 min including queue time
-- **Local build** (`npx eas build --platform ios --local`) — runs on macOS with Xcode, ~2-5 min, no upload/queue
+- **Cloud build** (`npx eas-cli build --platform ios`) — runs on Expo's servers, works from any OS, ~10-15 min including queue time
+- **Local build** (`npx eas-cli build --platform ios --local`) — runs on macOS with Xcode, ~2-5 min, no upload/queue
 
 ### Version Management
 
@@ -36,11 +36,11 @@ Use **Expo Application Services (EAS)** for building, signing, and distributing 
 
 ### Code Signing
 
-EAS manages iOS provisioning profiles and certificates. On first build, it prompts to create or link credentials. Use `npx eas credentials` to manage signing assets.
+EAS manages iOS provisioning profiles and certificates. On first build, it prompts to create or link credentials. Use `npx eas-cli credentials` to manage signing assets.
 
 ### Over-the-Air Updates
 
-`npx eas update` pushes JS bundle changes to users without a new native build. Only works for non-native changes (UI, logic, assets).
+`npx eas-cli update` pushes JS bundle changes to users without a new native build. Only works for non-native changes (UI, logic, assets).
 
 ## Consequences
 
@@ -50,5 +50,5 @@ EAS manages iOS provisioning profiles and certificates. On first build, it promp
 - OTA updates enable rapid hotfixes without app store review
 - Free tier has build limits; heavy usage requires a paid Expo plan
 - Cloud builds depend on Expo's infrastructure availability
-- EAS CLI as a dev dependency ensures version consistency across machines
-- All commands use `npx eas` — no global install required
+- `cli.version` in `eas.json` enforces minimum CLI version across machines
+- All commands use `npx eas-cli` — no global or local install required

@@ -10,7 +10,7 @@ Development cycle for this Expo cross-platform app (iOS, Android, Web).
 - **Git** — version control
 - **gitleaks** — secret scanning (install: `brew install gitleaks` or see https://github.com/gitleaks/gitleaks)
 
-Note: **EAS CLI** is a project dev dependency — no global install needed. Use `npx eas` to run it.
+Note: **EAS CLI** is managed via `npx eas-cli` — no global or local install needed. The minimum version is enforced by the `cli.version` field in `eas.json`.
 
 Optional (for local iOS builds on macOS):
 - **Xcode** — iOS simulator + local builds (macOS only)
@@ -31,7 +31,7 @@ cd my-app
 npm install
 
 # Log in to Expo (needed for EAS builds)
-npx eas login
+npx eas-cli login
 ```
 
 ## Development Cycle
@@ -155,7 +155,7 @@ Requires macOS with Xcode, CocoaPods, and Fastlane installed.
 
 ```bash
 # Build locally — typically 2-5 minutes
-npx eas build --platform ios --profile preview --local --output ./build/myapp-$(git rev-parse --short HEAD).ipa
+npx eas-cli build --platform ios --profile preview --local --output ./build/myapp-$(git rev-parse --short HEAD).ipa
 
 # Install via: drag to Xcode Devices window, or use Apple Configurator
 ```
@@ -164,7 +164,7 @@ For development iteration with hot reload (build once, iterate fast):
 
 ```bash
 # One-time: build the dev client locally
-npx eas build --platform ios --profile development --local --output ./build/myapp-$(git rev-parse --short HEAD).ipa
+npx eas-cli build --platform ios --profile development --local --output ./build/myapp-$(git rev-parse --short HEAD).ipa
 
 # Then start the dev server — changes appear instantly, no rebuild needed
 npx expo start --dev-client
@@ -197,7 +197,7 @@ xcrun simctl launch booted com.scottschreckengaust.myapp
 Use when you don't have a Mac available, or for CI/CD.
 
 ```bash
-npx eas build --platform ios --profile preview
+npx eas-cli build --platform ios --profile preview
 ```
 
 - **preview** — internal distribution, installs via QR/link
@@ -210,13 +210,13 @@ The build runs in Expo's cloud (~10-15 min including queue). When done, you get 
 Requires Android SDK (bundled with Android Studio).
 
 ```bash
-npx eas build --platform android --profile preview --local --output ./build/myapp-$(git rev-parse --short HEAD).apk
+npx eas-cli build --platform android --profile preview --local --output ./build/myapp-$(git rev-parse --short HEAD).apk
 ```
 
 #### Android — Cloud Build (any OS)
 
 ```bash
-npx eas build --platform android --profile preview
+npx eas-cli build --platform android --profile preview
 ```
 
 Download the `.apk` and install on your device.
@@ -234,7 +234,7 @@ Outputs static files to `dist/` for deployment to any web host.
 For changes that don't touch native code:
 
 ```bash
-npx eas update --branch preview --message "Description of update"
+npx eas-cli update --branch preview --message "Description of update"
 ```
 
 Users get the update without downloading a new build.
@@ -366,6 +366,6 @@ All active gates must pass before committing. Planned gates will be enforced as 
 
 **Build fails on EAS:** Check the build logs at https://expo.dev — most issues are dependency or signing related.
 
-**iOS signing issues:** Run `npx eas credentials` to manage certificates and provisioning profiles.
+**iOS signing issues:** Run `npx eas-cli credentials` to manage certificates and provisioning profiles.
 
 **Worktree issues:** `git worktree list` to see all worktrees. `git worktree prune` to clean up stale entries.
